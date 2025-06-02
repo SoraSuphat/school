@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบเช็กชื่อนักเรียน</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="เช็กชื่อนักเรียน">
+    <meta name="description" content="ระบบเช็กชื่อนักเรียนแบบดิจิทัล">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik00OCA2NEg4MFY5Nkg0OFY2NFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik00OCA5NkgxNDRWMTI4SDQ4Vjk2WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTQ4IDEyOEgxNDRWMTYwSDQ4VjEyOFoiIGZpbGw9IndoaXRlIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSIxOTIiIHkyPSIxOTIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY2N0VFQSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3NjRCQTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik00OCA2NEg4MFY5Nkg0OFY2NFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik00OCA5NkgxNDRWMTI4SDQ4Vjk2WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTQ4IDEyOEgxNDRWMTYwSDQ4VjEyOFoiIGZpbGw9IndoaXRlIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSIxOTIiIHkyPSIxOTIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY2N0VFQSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3NjRCQTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuC4o+C4sOC4muC4muC5gOC4iuC5h+C4geC4iuC4t+C5iOC4reC4meC4suC4geC5gOC4o+C4teC4ouC4mSIsCiAgInNob3J0X25hbWUiOiAi4LmA4LiK4LmH4LiB4LiK4Li34LmI4Lit4LiZ4LiV4LmA4Lij4Li14Lii4LiZIiwKICAiZGVzY3JpcHRpb24iOiAi4Lij4Liw4Lia4Lia4LmA4LiK4LmH4LiB4LiK4Li34LmI4Lit4LiZ4LiV4LmA4Lij4Li14Lii4LiZ4LmB4Lia4Lia4LiU4Li04LiI4Li04LiX4Lix4LilIiwKICAic3RhcnRfdXJsIjogIi8iLCAgCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzY2N2VlYSIsCiAgInRoZW1lX2NvbG9yIjogIiM2NjdlZWEiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlNVGt5SWlCb1pXbG5hSFE5SWpFNU1pSWdkbWxsZDBKdmVEMGlNQ0F3SURFNU1pQXhPVElpSUdacGJHdzlJbTV2Ym1VaUlIaHRiRzV6UFNKb2RIUndPaTh2ZDNkM0xuY3pMbTl5Wnk4eU1EQXdMM04yWnlJK0NqeHlaV04wSUhkcFpIUm9QU0l4T1RJaUlHaGxhV2RvZEQwaU1Ua3lJaUJ5ZUQwaU1qUWlJR1pwYkd3OUluVnliQ2duSTJkeVlXUnBaVzUwTUY5c2FXNW
+
+
+```html
+UjAgSUR0c2FXNWXJSUTJXY3lEc1gxOHBJaTgrQ2p4d1lYUm9JR1E5SWswME9DQTJORWc0TUZZNU5rZzBPRlkyTkZvaUlHWnBiR3c5SW5kb2FYUmxJaTgrQ2p4d1lYUm9JR1E5SWswME9DQTVOa2d4TkRSV01USTRTRFEwVmprMldpSWdabWxzYkQwaWQyaHBkR1VpTHo0S1BIQmhkR2dnWkQwaVRUUTRJREV5T0VneE5EUldNVFl3U0RRNFZqRXlPRm9pSUdacGJHdzlJbmRvYVhSbElpOCtDanh
+
+
+base64 data for icons and manifest...]">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .datetime {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .nav {
+            background: #f8f9fa;
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .nav-btn:hover {
+            background: #0056b3;
+        }
+
+        .nav-btn.active {
+            background: #28a745;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .student-table th,
+        .student-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .student-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .status-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .status-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            min-width: 60px;
+        }
+
+        .status-present {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-leave {
+            background: #ffc107;
+            color: black;
+        }
+
+        .status-notify {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .status-unknown {
+            background: #dc3545;
+            color: white;
+        }
+
+        .status-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .status-box {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f8f9fa;
+        }
+
+        .status-box h3 {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+        }
+
+        .status-box.present h3 {
+            background: #28a745;
+        }
+
+        .status-box.leave h3 {
+            background: #ffc107;
+            color: black;
+        }
+
+        .status-box.notify h3 {
+            background: #17a2b8;
+        }
+
+        .status-box.unknown h3 {
+            background: #dc3545;
+        }
+
+        .student-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #ddd;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .student-table {
+                font-size: 14px;
+            }
+
+            .student-table th:nth-child(2),
+            .student-table td:nth-child(2) {
+                max-width: 120px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .status-btn {
+                padding: 4px 8px;
+                font-size: 10px;
+                min-width: 45px;
+            }
+
+            .status-sections {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 10px 16px;
+            }
+        }
+
+        /* Dashboard Styles */
+        .dashboard-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 5px solid #007bff;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .details-table th,
+        .details-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .details-table th {
+            background: #f8f9fa;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bar-name {
+            min-width: 150px;
+            font-size: 14px;
+        }
+
+        .bar-visual {
+            flex: 1;
+            background: #e9ecef;
+            height: 25px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            border-radius: 12px;
+            transition: width 0.3s ease;
+        }
+
+        .bar-count {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            z-index: 1;
+        }
+
+        /* Settings Styles */
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+        }
+
+        .student-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .student-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .student-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ระบบเช็กชื่อนักเรียน</h1>
+            <div class="datetime" id="datetime"></div>
+        </div>
+
+        <div class="nav">
+            <a href="#" class="nav-btn active" onclick="showPage('checkin')">เช็กชื่อ</a>
+            <a href="#" class="nav-btn" onclick="showPage('dashboard')">แดชบอร์ด</a>
+            <a href="#" class="nav-btn" onclick="showPage('settings')">ตั้งค่า</a>
+            <a href="#" class="nav-btn" onclick="showPage('monthly')">สรุปรายเดือน</a>
+        </div>
+
+        <!-- หน้าเช็กชื่อ -->
+        <div id="checkin-page" class="content">
+            <div class="controls">
+                <button class="btn btn-primary" onclick="submitData()">ส่งข้อมูล</button>
+                <button class="btn btn-secondary" onclick="resetData()">รีเฟรชค่าเริ่มต้น</button>
+            </div>
+
+            <table class="student-table" id="student-table">
+                <thead>
+                    <tr>
+                        <th>เลขที่</th>
+                        <th>ชื่อ-นามสกุล</th>
+                        <th>สถานะ</th>
+                    </tr>
+                </thead>
+                <tbody id="student-tbody">
+                </tbody>
+            </table>
+
+            <div class="status-sections">
+                <div class="status-box present">
+                    <h3>ลงแถว</h3>
+                    <div id="present-list"></div>
+                </div>
+                <div class="status-box leave">
+                    <h3>ลา</h3>
+                    <div id="leave-list"></div>
+                </div>
+                <div class="status-box notify">
+                    <h3>แจ้งว่าไม่ลงแถว</h3>
+                    <div id="notify-list"></div>
+                </div>
+                <div class="status-box unknown">
+                    <h3>ไม่ทราบข้อมูล</h3>
+                    <div id="unknown-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- หน้าแดชบอร์ด -->
+        <div id="dashboard-page" class="content hidden">
+            <h2>ประวัติการเช็กชื่อ</h2>
+            <div id="dashboard-list"></div>
+            
+            <div class="chart-container">
+                <h3>นักเรียนที่ไม่แจ้งข้อมูลสะสมมากที่สุด</h3>
+                <div class="bar-chart" id="unknown-chart"></div>
+            </div>
+        </div>
+
+        <!-- หน้าตั้งค่า -->
+        <div id="settings-page" class="content hidden">
+            <h2>ตั้งค่าระบบ</h2>
+            
+            <h3>นำเข้ารายชื่อนักเรียน</h3>
+            <div class="upload-area">
+                <p>อัปโหลดไฟล์ CSV (เลขที่, ชื่อ-นามสกุล)</p>
+                <input type="file" id="csvFile" accept=".csv" onchange="uploadCSV(event)">
+            </div>
+
+            <h3>รายชื่อนักเรียนทั้งหมด</h3>
+            <div class="student-list" id="student-list"></div>
+        </div>
+
+        <!-- หน้าสรุปรายเดือน -->
+        <div id="monthly-page" class="content hidden">
+            <h2>สรุปรายเดือน</h2>
+            <div id="monthly-summary"></div>
+        </div>
+    </div>
+
+    <script>
+        // ข้อมูลนักเรียน
+        let students = [];
+        let checkinData = [];
+        let currentStudents = [];
+
+        // โหลดข้อมูลจาก localStorage
+        function loadData() {
+            const storedStudents = localStorage.getItem('students');
+            const storedCheckinData = localStorage.getItem('checkinData');
+            
+            if (storedStudents) {
+                students = JSON.parse(storedStudents);
+            }
+            
+            if (storedCheckinData) {
+                checkinData = JSON.parse(storedCheckinData);
+            }
+            
+            resetCurrentStudents();
+        }
+
+        // รีเซ็ตรายชื่อนักเรียนปัจจุบัน
+        function resetCurrentStudents() {
+            currentStudents = students.map(student => ({
+                ...student,
+                status: null
+            }));
+            renderStudentTable();
+            renderStatusBoxes();
+        }
+
+        // แสดงวันที่และเวลาแบบ Real-time
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZone: 'Asia/Bangkok'
+            };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('th-TH', options);
+        }
+
+        // แสดงตารางนักเรียน
+        function renderStudentTable() {
+            const tbody = document.getElementById('student-tbody');
+            tbody.innerHTML = '';
+            
+            currentStudents
+                .filter(student => !student.status)
+                .forEach(student => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${student.number}</td>
+                        <td>${student.name}</td>
+                        <td>
+                            <div class="status-buttons">
+                                <button class="status-btn status-present" onclick="setStatus(${student.number}, 'present')">
+                                    <span class="desktop-text">ลงแถว</span>
+                                    <span class="mobile-text">ลง</span>
+                                </button>
+                                <button class="status-btn status-leave" onclick="setStatus(${student.number}, 'leave')">
+                                    <span class="desktop-text">ลา</span>
+                                    <span class="mobile-text">ลา</span>
+                                </button>
+                                <button class="status-btn status-notify" onclick="setStatus(${student.number}, 'notify')">
+                                    <span class="desktop-text">แจ้งว่าไม่ลงแถว</span>
+                                    <span class="mobile-text">แจ้ง</span>
+                                </button>
+                                <button class="status-btn status-unknown" onclick="setStatus(${student.number}, 'unknown')">
+                                    <span class="desktop-text">ไม่ทราบข้อมูล</span>
+                                    <span class="mobile-text">ไม่แจ้ง</span>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+        }
+
+        // ตั้งสถานะนักเรียน
+        function setStatus(studentNumber, status) {
+            const student = currentStudents.find(s => s.number == studentNumber);
+            if (student) {
+                student.status = status;
+                renderStudentTable();
+                renderStatusBoxes();
+            }
+        }
+
+        // แสดงกล่องสถานะ
+        function renderStatusBoxes() {
+            const statuses = ['present', 'leave', 'notify', 'unknown'];
+            const statusNames = {
+                present: 'ลงแถว',
+                leave: 'ลา', 
+                notify: 'แจ้งว่าไม่ลงแถว',
+                unknown: 'ไม่ทราบข้อมูล'
+            };
+
+            statuses.forEach(status => {
+                const container = document.getElementById(`${status}-list`);
+                const studentsWithStatus = currentStudents.filter(s => s.status === status);
+                
+                container.innerHTML = studentsWithStatus.map(student => 
+                    `<div class="student-item">${student.number}. ${student.name}</div>`
+                ).join('');
+            });
+        }
+
+        // ส่งข้อมูล
+        function submitData() {
+            const now = new Date();
+            const data = {
+                timestamp: now.toISOString(),
+                date: now.toLocaleDateString('th-TH'),
+                time: now.toLocaleTimeString('th-TH'),
+                students: currentStudents.filter(s => s.status).map(s => ({
+                    number: s.number,
+                    name: s.name,
+                    status: s.status
+                }))
+            };
+
+            checkinData.unshift(data); // เพิ่มข้อมูลใหม่ไว้ด้านบน
+            localStorage.setItem('checkinData', JSON.stringify(checkinData));
+            
+            alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+            resetCurrentStudents();
+        }
+
+        // รีเฟรชข้อมูล
+        function resetData() {
+            if (confirm('ต้องการรีเฟรชข้อมูลหรือไม่?')) {
+                resetCurrentStudents();
+            }
+        }
+
+        // แสดงหน้าต่างๆ
+        function showPage(pageName) {
+            // ซ่อนหน้าทั้งหมด
+            document.querySelectorAll('.content').forEach(page => {
+                page.classList.add('hidden');
+            });
+
+            // แสดงหน้าที่เลือก
+            document.getElementById(`${pageName}-page`).classList.remove('hidden');
+
+            // อัปเดตปุ่ม navigation
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // โหลดข้อมูลตามหน้า
+            if (pageName === 'dashboard') {
+                renderDashboard();
+            } else if (pageName === 'settings') {
+                renderSettings();
+            } else if (pageName === 'monthly') {
+                renderMonthlySummary();
+            }
+        }
+
+        // แสดงแดชบอร์ด
+        function renderDashboard() {
+            const container = document.getElementById('dashboard-list');
+            container.innerHTML = '';
+
+            checkinData.forEach((data, index) => {
+                const stats = {
+                    present: data.students.filter(s => s.status === 'present').length,
+                    leave: data.students.filter(s => s.status === 'leave').length,
+                    notify: data.students.filter(s => s.status === 'notify').length,
+                    unknown: data.students.filter(s => s.status === 'unknown').length
+                };
+
+                const item = document.createElement('div');
+                item.className = 'dashboard-item';
+                item.innerHTML = `
+                    <div class="dashboard-header">
+                        <h3>${data.date} - ${data.time}</h3>
+                        <button class="btn btn-danger" onclick="deleteCheckinData(${index})">ลบข้อมูลชุดนี้</button>
+                    </div>
+                    <div class="dashboard-stats">
+                        <div class="stat-item" style="background: #28a745;">
+                            <div>ลงแถว</div>
+                            <div>${stats.present}</div>
+                        </div>
+                        <div class="stat-item" style="background: #ffc107; color: black;">
+                            <div>ลา</div>
+                            <div>${stats.leave}</div>
+                        </div>
+                        <div class="stat-item" style="background: #17a2b8;">
+                            <div>แจ้ง</div>
+                            <div>${stats.notify}</div>
+                        </div>
+                        <div class="stat-item" style="background: #dc3545;">
+                            <div>ไม่แจ้ง</div>
+                            <div>${stats.unknown}</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="toggleDetails(${index})">ดูรายละเอียด</button>
+                    <div id="details-${index}" class="hidden">
+                        <table class="details-table">
+                            <thead>
+                                <tr>
+                                    <th>เลขที่</th>
+                                    <th>ชื่อ-นามสกุล</th>
+                                    <th>สถานะ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.students.map(student => `
+                                    <tr>
+                                        <td>${student.number}</td>
+                                        <td>${student.name}</td>
+                                        <td>${getStatusText(student.status)}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+
+            renderUnknownChart();
+        }
+
+        // แสดง/ซ่อนรายละเอียด
+        function toggleDetails(index) {
+            const details = document.getElementById(`details-${index}`);
+            details.classList.toggle('hidden');
+        }
+
+        // ลบข้อมูลเช็กชื่อ
+        function deleteCheckinData(index) {
+            if (confirm('ต้องการลบข้อมูลชุดนี้หรือไม่?')) {
+                checkinData.splice(index, 1);
+                localStorage.setItem('checkinData', JSON.stringify(checkinData));
+                renderDashboard();
+            }
+        }
+
+        // แสดงกราฟนักเรียนที่ไม่แจ้งข้อมูล
+        function renderUnknownChart() {
+            const unknownCounts = {};
+            
+            checkinData.forEach(data => {
+                data.students
+                    .filter(s => s.status === 'unknown')
+                    .forEach(student => {
+                        unknownCounts[student.name] = (unknownCounts[student.name] || 0) + 1;
+                    });
+            });
+
+            const sortedData = Object.entries(unknownCounts)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 10);
+
+            const maxCount = Math.max(...sortedData.map(([,count]) => count), 1);
+            const chartContainer = document.getElementById('unknown-chart');
+            
+            chartContainer.innerHTML = sortedData.map(([name, count]) => `
+                <div class="bar-item">
+                    <div class="bar-name">${name}</div>
+                    <div class="bar-visual">
+                        <div class="bar-fill" style="width: ${(count / maxCount) * 100}%"></div>
+                        <div class="bar-count">${count}</div>
+                    </div>
+                </div>
+            `).join('') || '<p>ไม่มีข้อมูล</p>';
+        }
+
+        // แสดงหน้าตั้งค่า
+        function renderSettings() {
+            const container = document.getElementById('student-list');
+            container.innerHTML = '';
+            
+            students.forEach((student, index) => {
+                const item = document.createElement('div');
+                item.className = 'student-list-item';
+                item.innerHTML = `
+                    <span>${student.number}. ${student.name}</span>
+                    <button class="btn btn-danger" onclick="deleteStudent(${index})">ลบ</button>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // อัปโหลด CSV
+        function uploadCSV(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const csv = e.target.result;
+                const lines = csv.split('\n');
+                const newStudents = [];
+
+                lines.forEach(line => {
+                    const [number, name] = line.split(',').map(s => s.trim());
+                    if (number && name) {
+                        newStudents.push({ number: parseInt(number), name });
+                    }
+                });
+
+                students = newStudents.sort((a, b) => a.number - b.number);
+                localStorage.setItem('students', JSON.stringify(students));
+                renderSettings();
+                resetCurrentStudents();
+                alert(`นำเข้าข้อมูลนักเรียน ${students.length} คน เรียบร้อยแล้ว`);
+            };
+            reader.readAsText(file);
+        }
+
+        // ลบนักเรียน
+        function deleteStudent(index) {
+            if (confirm(`ต้องการลบ ${students[index].name} หรือไม่?`)) {
+                students.splice(index, 1);
+                localStorage.setItem('students', JSON.stringify(students));
+                renderSettings();
+                resetCurrentStudents();
+            }
+        }
+
+        // แสดงสรุปรายเดือน
+        function renderMonthlySummary() {
+            const container = document.getElementById('monthly-summary');
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            
+            // รวมข้อมูลรายเดือน
+            const monthlyData = {};
+            
+            checkinData.forEach(data => {
+                const date = new Date(data.timestamp);
+                if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
+                    data.students.forEach(student => {
+                        if (!monthlyData[student.name]) {
+                            monthlyData[student.name] = {
+                                leave: 0,
+                                notify: 0,
+                                unknown: 0
+                            };
+                        }
+                        if (student.status === 'leave') monthlyData[student.name].leave++;
+                        if (student.status === 'notify') monthlyData[student.name].notify++;
+                        if (student.status === 'unknown') monthlyData[student.name].unknown++;
+                    });
+                }
+            });
+
+            // หานักเรียนที่มีปัญหา (รวมแล้ว <= 4 ครั้ง)
+            const problemStudents = Object.entries(monthlyData)
+                .filter(([name, data]) => (data.leave + data.notify + data.unknown) <= 4)
+                .sort(([,a], [,b]) => (a.leave + a.notify + a.unknown) - (b.leave + b.notify + b.unknown));
+
+            container.innerHTML = `
+                <h3>เดือน ${new Date().toLocaleDateString('th-TH', { month: 'long', year: 'numeric' })}</h3>
+                <div class="alert" style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                    <h4>🚨 นักเรียนที่แจ้งเตือนชื่อ (ลา + แจ้ง + ไม่ทราบ ≤ 4 ครั้ง)</h4>
+                    ${problemStudents.length > 0 ? 
+                        problemStudents.map(([name, data]) => `
+                            <div style="padding: 10px; margin: 5px 0; background: white; border-radius: 5px;">
+                                <strong>${name}</strong> - 
+                                ลา: ${data.leave} ครั้ง, แจ้ง: ${data.notify} ครั้ง, ไม่ทราบ: ${data.unknown} ครั้ง 
+                                (รวม: ${data.leave + data.notify + data.unknown} ครั้ง)
+                            </div>
+                        `).join('') : 
+                        '<p>ไม่มีนักเรียนที่ต้องแจ้งเตือน</p>'
+                    }
+                </div>
+                
+                <h4>สรุปข้อมูลทั้งหมด</h4>
+                <table class="student-table">
+                    <thead>
+                        <tr>
+                            <th>ชื่อ-นามสกุล</th>
+                            <th>ลา</th>
+                            <th>แจ้ง</th>
+                            <th>ไม่ทราบ</th>
+                            <th>รวม</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Object.entries(monthlyData).map(([name, data]) => `
+                            <tr>
+                                <td>${name}</td>
+                                <td>${data.leave}</td>
+                                <td>${data.notify}</td>
+                                <td>${data.unknown}</td>
+                                <td>${data.leave + data.notify + data.unknown}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // ฟังก์ชันช่วย
+        function getStatusText(status) {
+            const statusMap = {
+                present: 'ลงแถว',
+                leave: 'ลา',
+                notify: 'แจ้งว่าไม่ลงแถว',
+                unknown: 'ไม่ทราบข้อมูล'
+            };
+            return statusMap[status] || status;
+        }
+
+        // Service Worker Registration & PWA Features
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                const swCode = `
+                    const CACHE_NAME = 'student-checkin-v1.0.0';
+                    const urlsToCache = [
+                        '/',
+                        '/offline.html'
+                    ];
+
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                        self.skipWaiting();
+                    });
+
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request).catch(() => {
+                                        if (event.request.destination === 'document') {
+                                            return caches.match('/offline.html');
+                                        }
+                                    });
+                                })
+                        );
+                    });
+
+                    self.addEventListener('activate', (event) => {
+                        event.waitUntil(
+                            caches.keys().then((cacheNames) => {
+                                return Promise.all(
+                                    cacheNames.map((cacheName) => {
+                                        if (cacheName !== CACHE_NAME) {
+                                            return caches.delete(cacheName);
+                                        }
+                                    })
+                                );
+                            })
+                        );
+                    });
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+
+                navigator.serviceWorker.register(swUrl)
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                        checkForUpdates(registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            }
+        }
+
+        // Check for app updates
+        function checkForUpdates(registration) {
+            registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        if (confirm('มีเวอร์ชันใหม่ของแอปพร้อมใช้งาน ต้องการโหลดใหม่หรือไม่?')) {
+                            window.location.reload();
+                        }
+                    }
+                });
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            showInstallButton();
+        });
+
+        function showInstallButton() {
+            const installButton = document.createElement('button');
+            installButton.textContent = '📱 ติดตั้งแอป';
+            installButton.className = 'btn btn-primary install-btn';
+            installButton.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 1000;
+                border-radius: 50px;
+                padding: 10px 20px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                animation: pulse 2s infinite;
+            `;
+            
+            installButton.addEventListener('click', installApp);
+            document.body.appendChild(installButton);
+
+            // Add pulse animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.05); }
+                    100% { transform: scale(1); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        async function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                    console.log('App installed');
+                    document.querySelector('.install-btn')?.remove();
+                }
+                
+                deferredPrompt = null;
+            }
+        }
+
+        // Handle app installation
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('App installed successfully');
+            document.querySelector('.install-btn')?.remove();
+            
+            // Show welcome message
+            setTimeout(() => {
+                alert('🎉 ติดตั้งแอปเรียบร้อยแล้ว! ตอนนี้คุณสามารถใช้งานแอปได้แบบออฟไลน์');
+            }, 1000);
+        });
+
+        // Online/Offline Status
+        function updateOnlineStatus() {
+            const indicator = document.createElement('div');
+            indicator.id = 'connection-status';
+            indicator.style.cssText = `
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                padding: 5px 10px;
+                border-radius: 15px;
+                font-size: 12px;
+                font-weight: bold;
+                z-index: 1000;
+                transition: all 0.3s ease;
+            `;
+            
+            if (navigator.onLine) {
+                indicator.textContent = '🟢 ออนไลน์';
+                indicator.style.background = '#d4edda';
+                indicator.style.color = '#155724';
+            } else {
+                indicator.textContent = '🔴 ออฟไลน์';
+                indicator.style.background = '#f8d7da';
+                indicator.style.color = '#721c24';
+            }
+            
+            const existing = document.getElementById('connection-status');
+            if (existing) existing.remove();
+            document.body.appendChild(indicator);
+            
+            // Auto hide online indicator
+            if (navigator.onLine) {
+                setTimeout(() => indicator.remove(), 3000);
+            }
+        }
+
+        // Notification Support
+        function requestNotificationPermission() {
+            if ('Notification' in window && 'serviceWorker' in navigator) {
+                Notification.requestPermission().then((permission) => {
+                    if (permission === 'granted') {
+                        console.log('Notification permission granted');
+                    }
+                });
+            }
+        }
+
+        function showNotification(title, options = {}) {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                navigator.serviceWorker.ready.then((registration) => {
+                    registration.showNotification(title, {
+                        badge: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzY2N2VlYSIvPgo8cGF0aCBkPSJNMTYgMjBIMjRWMzJIMTZWMjBaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTYgMzJINDhWNDBIMTZWMzJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTYgNDBINDhWNDhIMTZWNDBaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K',
+                        icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiByeD0iMTYiIGZpbGw9IiM2NjdlZWEiLz4KPHBhdGggZD0iTTMyIDQwSDQ4VjY0SDMyVjQwWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTMyIDY0SDk2VjgwSDMyVjY0WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTMyIDgwSDk2Vjk2SDMyVjgwWiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cg==',
+                        ...options
+                    });
+                });
+            }
+        }
+
+        // Enhanced Submit with Notification
+        function submitDataWithNotification() {
+            submitData();
+            
+            const totalStudents = currentStudents.filter(s => s.status).length;
+            showNotification('✅ บันทึกข้อมูลเรียบร้อยแล้ว', {
+                body: `เช็กชื่อนักเรียน ${totalStudents} คน เสร็จสิ้น`,
+                tag: 'checkin-complete'
+            });
+        }
+
+        // Initialize PWA features
+        function initPWA() {
+            registerServiceWorker();
+            requestNotificationPermission();
+            updateOnlineStatus();
+            
+            // Listen for online/offline events
+            window.addEventListener('online', updateOnlineStatus);
+            window.addEventListener('offline', updateOnlineStatus);
+            
+            // Override submit function
+            window.submitData = submitDataWithNotification;
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 's':
+                            e.preventDefault();
+                            submitData();
+                            break;
+                        case 'r':
+                            e.preventDefault();
+                            resetData();
+                            break;
+                    }
+                }
+            });
+        }
+            loadData();
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            
+            // เพิ่ม CSS สำหรับ responsive text
+            const style = document.createElement('style');
+            style.textContent = `
+                @media (min-width: 769px) {
+                    .mobile-text { display: none; }
+                }
+                @media (max-width: 768px) {
+                    .desktop-text { display: none; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // เริ่มต้นเมื่อโหลดหน้า
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
